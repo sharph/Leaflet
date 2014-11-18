@@ -20,10 +20,9 @@ L.Draggable = L.Evented.extend({
 		}
 	},
 
-	initialize: function (element, dragStartTarget, preventOutline) {
+	initialize: function (element, dragStartTarget) {
 		this._element = element;
 		this._dragStartTarget = dragStartTarget || element;
-		this._preventOutline = preventOutline;
 	},
 
 	enable: function () {
@@ -50,14 +49,11 @@ L.Draggable = L.Evented.extend({
 
 		L.DomEvent.stopPropagation(e);
 
-		if (this._preventOutline) {
-			L.DomEvent.preventDefault(e);
-		}
-
 		if (L.Draggable._disabled) { return; }
 
 		L.DomUtil.disableImageDrag();
 		L.DomUtil.disableTextSelection();
+		L.DomUtil.preventOutline(this._element);
 
 		if (this._moving) { return; }
 
