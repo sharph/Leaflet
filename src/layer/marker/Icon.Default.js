@@ -30,7 +30,7 @@ L.Icon.Default = L.Icon.extend({
 
 L.Icon.Default.imagePath = (function () {
 	var scripts = document.getElementsByTagName('script'),
-	    leafletRe = /[\/^]leaflet[\-\._]?([\w\-\._]*)\.js\??/;
+	    leafletRe = /(^|\/|.+\/)leaflet[\-\._]?([\w\-\._]*)\.js\??/;
 
 	var i, len, src, path;
 
@@ -38,8 +38,8 @@ L.Icon.Default.imagePath = (function () {
 		src = scripts[i].src;
 
 		if (src.match(leafletRe)) {
-			path = src.split(leafletRe)[0];
-			return (path ? path + '/' : '') + 'images';
+			path = src.match(leafletRe)[1];
+			return path + 'images';
 		}
 	}
 }());
